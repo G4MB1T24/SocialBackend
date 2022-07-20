@@ -10,7 +10,7 @@ const PostSchema = new Schema({
     required: true,
   },
   img: {
-    type: Image,
+    type: String,
     required: true,
   },
   dateCreate: {

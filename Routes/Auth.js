@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Users = require("../models/Users");
 const { body, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken")
+require('dotenv').config()
+
 
 router.post(
   "/createuser",
@@ -29,8 +32,14 @@ router.post(
         email: req.body.email,
         password: req.body.password,
       });
+      const data = {
+        id : User.id
+      }
+      const authtoken = jwt.sign(data, process.env.JWT_ACCESS_CODE)
+      
       res.json({
         User: User,
+        authtoken : authtoken,
       });
     } catch (error) {
       res.send("error");
