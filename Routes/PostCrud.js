@@ -29,25 +29,29 @@ router.post("/createpost", fetchuser, async (req, res) => {
   }
 });
 router.put("/updatepost/:id", fetchuser, async (req, res) => {
-  const { title, description, img, tags } = req.body;
-  let newnote = {};
-  if (title) newnote.title = title;
-  if (description) newnote.description = description;
-  if (tags) newnote.tags = tags;
-  if (img) newnote.img = img;
-
-  let post = await Posts.findById(req.params.id);
-  if (!post) {
-    return res.status(404).json({ msg: "Post not found" });
-  }
-  if (post.user.toString() !== req.user.id) {
-    return res.status(401).json({ msg: "Not authorized" });
-  }
-  console.log(post);
-  newnote = await Posts.findByIdAndUpdate(
-    req.params.id,
-    { $set: newnote },
-    { $new: true }
-  );
+try {
+    const { title, description, img, tags } = req.body;
+    let newnote = {};
+    if (title) newnote.title = title;
+    if (description) newnote.description = description;
+    if (tags) newnote.tags = tags;
+    if (img) newnote.img = img;
+  
+    let post = await Posts.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "Not authorized" });
+    }
+    console.log(post);
+    newnote = await Posts.findByIdAndUpdate(
+      req.params.id,
+      { $set: newnote },
+      { $new: true }
+    );
+} catch (error) {
+    res.send(error.message)
+}
 });
 module.exports = router;
