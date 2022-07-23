@@ -55,49 +55,22 @@ router.put("/updatepost/:id", fetchuser, async (req, res) => {
   }
 });
 
-// router.delete("/delete/:id", fetchuser, async (req, res) => {
-//   try {
-//     const post = await Posts.findById(req.params.id);
-//     if (!post) {
-//       return res.status(404).json({ msg: "Note not found" });
-//     }
-
-   
-
-//     // check if user is authorized to delete
-//     if (post.user.toString() !== req.user.id) {
-//       return res.status(401).json({ msg: "Not authorized" });
-//     }
-
-
-
-//     post = await Posts.findByIdAndDelete(req.params.id);
-//   } catch (error) {
-//     res.send(error.message);
-//   }
-// });
-router.delete("/delete/:id", fetchuser , async (req, res) => {
+router.delete("/delete/:id", fetchuser, async (req, res) => {
   try {
-
-
     // find note to delete
-
 
     let post = await Posts.findById(req.params.id);
     if (!post) {
       return res.status(404).json({ msg: "Note not found" });
     }
 
-    console.log(post.user)
 
     // check if user is authorized to delete
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: "Not authorized" });
     }
 
-
-
-    post = await Posts.findByIdAndDelete(req.params.id); 
+    post = await Posts.findByIdAndDelete(req.params.id);
 
     // res.json(note);
     res.json("Successfully deleted");
