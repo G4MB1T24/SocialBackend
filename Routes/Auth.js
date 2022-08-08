@@ -40,7 +40,7 @@ router.post(
           id: User.id,
         },
       };
-      const authtoken = jwt.sign(data, JWT_SECRET);
+      const authtoken = jwt.sign(data ,process.env.JWT_ACCESS_CODE);
 
       res.json({
         User: User,

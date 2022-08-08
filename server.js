@@ -12,5 +12,5 @@ app.use(express.json());
 app.use("/api/auth", Auth);
 app.use("/api/posts", PostCrud);
 app.listen(port, () => {
-  console.log("listening");
+  console.log(`listening to http://localhost:${port} `);
 });

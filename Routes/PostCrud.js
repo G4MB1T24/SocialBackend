@@ -2,6 +2,10 @@ const express = require("express");
 const fetchuser = require("../middleware/fetchuser");
 const router = express.Router();
 const Posts = require("../models/Posts");
+router.get("/fetcheverypost", async (req, res) => {
+  const PostSend = await Posts.find()
+  res.json([PostSend])
+})
 router.get("/fetchposts", fetchuser, async (req, res) => {
   try {
     const PostsSend = await Posts.find({ user: req.user.id });
