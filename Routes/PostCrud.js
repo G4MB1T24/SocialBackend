@@ -2,10 +2,12 @@ const express = require("express");
 const fetchuser = require("../middleware/fetchuser");
 const router = express.Router();
 const Posts = require("../models/Posts");
+
+
 router.get("/fetcheverypost", async (req, res) => {
-  const PostSend = await Posts.find()
-  res.json([PostSend])
-})
+  const PostSend = await Posts.find();
+  res.json([PostSend]);
+});
 router.get("/fetchposts", fetchuser, async (req, res) => {
   try {
     const PostsSend = await Posts.find({ user: req.user.id });
@@ -67,7 +69,6 @@ router.delete("/delete/:id", fetchuser, async (req, res) => {
     if (!post) {
       return res.status(404).json({ msg: "Note not found" });
     }
-
 
     // check if user is authorized to delete
     if (post.user.toString() !== req.user.id) {

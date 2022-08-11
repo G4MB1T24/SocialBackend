@@ -103,4 +103,13 @@ router.post("/getuser", fetchuser, async (req, res) => {
   }
 });
 
+router.get("/fetcheveryuser", fetchuser, async (req, res) => {
+  try {
+    const alluser = await Users.find().select("-password")
+    res.send(alluser)
+  } catch (error) {
+    res.send(error)
+    console.log(error)
+  }
+})
 module.exports = router;
